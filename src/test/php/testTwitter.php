@@ -1,6 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace TestSocialNetwork;
+
 use JetBrains\PhpStorm\Pure;
 use PHPUnit\Framework\TestCase;
 use SocialNetwork\EmptyListOfSubscribersException;
@@ -18,7 +21,7 @@ class testTwitter extends TestCase
     private Twitter $twitter;
     //endregion private attributes
 
-    public function setup():void
+    public function setup(): void
     {
         $this->twitter = new Twitter();
     }
@@ -50,7 +53,8 @@ class testTwitter extends TestCase
         $this->assertCount($expectedAmountOfObservers, $this->twitter->getObservers());
     }
 
-    public function test_twits_AfterInstantiation_Success(){
+    public function test_twits_AfterInstantiation_Success()
+    {
         //given
         //refer to Before Each method
         $expectedAmountOfTwits = 0;
@@ -62,7 +66,8 @@ class testTwitter extends TestCase
         $this->assertCount($expectedAmountOfTwits, $this->twitter->getTwits());
     }
 
-    public function test_notifyObservers_EmptyListOfSubscriber_ThrowsException(){
+    public function test_notifyObservers_EmptyListOfSubscriber_ThrowsException()
+    {
         //given
         //refer to Setup Each method
 
@@ -74,7 +79,8 @@ class testTwitter extends TestCase
         $this->twitter->notifyObservers();
     }
 
-    public function test_subscribe_AddFirstSubscriber_Success() {
+    public function test_subscribe_AddFirstSubscriber_Success()
+    {
         //given
         //refer to Setup Method
         $expectedAmountOfSubscribers = 15;
@@ -87,7 +93,8 @@ class testTwitter extends TestCase
         $this->assertCount($expectedAmountOfSubscribers, $this->twitter->getObservers());
     }
 
-    public function test_subscribe_AddSubscribersToExistingList_Success(){
+    public function test_subscribe_AddSubscribersToExistingList_Success()
+    {
         //given
         //refer to Setup Method
         $expectedAmountOfSubscriber = 30;
@@ -165,11 +172,10 @@ class testTwitter extends TestCase
     }
 
     //region private methods
-    #[Pure] private function generateObservers($amountOfObserversToCreate, $startIndex = 0):array
+    #[Pure] private function generateObservers($amountOfObserversToCreate, $startIndex = 0): array
     {
         $observers = array();
-        for ($i= $startIndex; $i < $amountOfObserversToCreate + $startIndex ; $i++)
-        {
+        for ($i = $startIndex; $i < $amountOfObserversToCreate + $startIndex; $i++) {
             $observers[] = new Follower($i);
         }
         return $observers;

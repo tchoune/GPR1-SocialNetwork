@@ -17,14 +17,14 @@ class Twitter implements IObservable
 
     public function __construct(array $observers = [], $twits = [])
     {
-        $this->observers = $observers;
+        $this->subscribe($observers);
         $this->twits = $twits;
     }
 
     public function subscribe(array $observers): void
     {
         foreach ($observers as $observer) {
-            if(in_array($observer, $this->observers, true))
+            if (in_array($observer, $this->observers, true))
                 throw new SubscriberAlreadyExistsException;
             $this->observers[] = $observer;
         }
@@ -32,14 +32,13 @@ class Twitter implements IObservable
 
     public function unsubscribe(IObserver $observer): void
     {
-        if(empty($this->observers))
+        if (empty($this->observers))
             throw new EmptyListOfSubscribersException;
-        
-        if(!in_array($observer, $this->observers, true))
+
+        if (!in_array($observer, $this->observers, true))
             throw new SubscriberNotFoundException;
-    
+
         unset($this->observers[array_search($observer, $this->observers, true)]);
-    
     }
 
     public function notifyObservers(): void
